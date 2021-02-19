@@ -1,13 +1,13 @@
 const Category = require("../models/category")
 
 exports.getCategoryById = (req, res, next, id) => {
-    Category.findById(id).exec((err, cate) => {
+    Category.findById(id).exec((err, category) => {
         if(err){
             return res.status(400).json({
                 error: "Category Not Found!"
             })
         }
-        req.Category = cate
+        req.Category = category
     })
     next()
 }
@@ -20,7 +20,7 @@ exports.createCategory = (req, res) => {
                 error: "Not able to save category in DB"
             })
         }
-        req.json({category})
+        res.json({category})
     })
 }
 exports.getCategory = (req, res) => {
@@ -38,7 +38,7 @@ exports.getAllCategory = (req, res) => {
 }
 
 exports.updateCategory = (req, res) => {
-    const category = req.category
+    const category = req.Category
     category.name = req.body.name
 
     category.save((err, updatedCategory)=>{
@@ -52,7 +52,7 @@ exports.updateCategory = (req, res) => {
 }
 
 exports.deleteCategory = (req, res) => {
-    const category = req.category
+    const category = req.Category
 
     category.remove((err, category)=>{
         if(err){

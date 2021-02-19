@@ -10,7 +10,7 @@ const categorySchema = new mongoose.Schema(
       unique: true
     }
   },
-  { timestamp: true }
+  { timestamps: { createdAt: true } }
 );
 
 module.exports = mongoose.model("Category", categorySchema)

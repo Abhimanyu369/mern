@@ -28,7 +28,21 @@ exports.createProduct = (req, res) => {
             })
         }
 
-        // ToDo: Restriction on Fields
+        // Destructure the fields
+        const {name, description, price, category, stock} = fields
+
+        if(
+            !name ||
+            !description || 
+            !price || 
+            !category ||
+            !stock
+        ) {
+            return res.status(400).json({
+                error: "Please include all fields"
+            })
+        }
+
         let product = new Product(fields)
 
         // handle file here
@@ -46,7 +60,7 @@ exports.createProduct = (req, res) => {
         product.save((err, product)=>{
             if(err){
                 res.status(400).json({
-                    error: "Savin Tshirt in db failed"
+                    error: "Saving Tshirt in db failed"
                 })
             }
             res.json(product)

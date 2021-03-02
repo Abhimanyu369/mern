@@ -26,3 +26,34 @@ exports.createOrder = (req, res) => {
         res.json(order)
     })
 }
+
+exports.getAllOrders = (req, res) => {
+    Order.find()
+        .populate("user", "_id name")
+        .exec((err, order)=>{
+            if(err) {
+                return res.status(400).json({
+                    error: "No Order found in DB"
+                })
+            }
+            res.json(order)
+        })
+}
+
+exports.updateStatus = (req, res) => {
+    Order.updateOne(
+        {_id: req.body.orderId},
+        {$set: {status: req.body.status}},
+        (err, order) => {
+            if(err) {
+                return res.status(400).json({
+                    error: "Unable to update!"
+                })
+            }
+            res.json(order)
+        }
+    )
+}
+exports.getOrderStatus = (req, res) => {
+    res.json(Order.schema.path("status").enum)
+}

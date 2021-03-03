@@ -8,7 +8,7 @@ const {signout, signup, signin, isSignedIn} = require("../controllers/auth")
 router.post('/signup',
 check('name')
     .isLength({ min: 3 })
-    .withMessage('must be at least 3 chars long'),
+    .withMessage('name must be at least 3 chars long'),
 
 check('email')
     .isEmail()
@@ -16,7 +16,7 @@ check('email')
 
 check('password')
     .isLength({ min: 3 })
-    .withMessage('must be at least 3 chars long')
+    .withMessage('password must be at least 3 chars long')
 , signup)
 
 router.post('/signin',
@@ -26,7 +26,7 @@ check('email')
 
 check('password')
     .isLength({ min: 3 })
-    .withMessage('must be at least 3 chars long')
+    .withMessage('password must be at least 3 chars long')
 , signin)
 
 router.get('/signout', signout)
